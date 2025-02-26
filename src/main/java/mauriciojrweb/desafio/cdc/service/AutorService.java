@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class AutorService {
 
-    private final AutorRepository autorRepository;
+    private AutorRepository autorRepository;
 
     public void salva(AutorRequest autorRequest) {
         autorRepository.save(autorRequest.toAutor());
