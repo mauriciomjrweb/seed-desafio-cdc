@@ -8,12 +8,13 @@ import org.springframework.validation.Validator;
 
 import java.util.Objects;
 
+@Deprecated
 @Component
-public class EmailDuplicadoAutorValidator implements Validator {
+public class EmailAutorDuplicadoValidator implements Validator {
 
     private final AutorRepository autorRepository;
 
-    public EmailDuplicadoAutorValidator(AutorRepository autorRepository) {
+    public EmailAutorDuplicadoValidator(AutorRepository autorRepository) {
         this.autorRepository = autorRepository;
     }
 

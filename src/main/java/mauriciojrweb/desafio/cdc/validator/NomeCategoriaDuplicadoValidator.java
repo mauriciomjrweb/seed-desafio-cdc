@@ -8,6 +8,7 @@ import org.springframework.validation.Validator;
 
 import java.util.Objects;
 
+@Deprecated
 @Component
 public class NomeCategoriaDuplicadoValidator implements Validator {
 

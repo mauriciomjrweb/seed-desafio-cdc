@@ -4,8 +4,6 @@ import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import mauriciojrweb.desafio.cdc.controller.dto.request.AutorRequest;
 import mauriciojrweb.desafio.cdc.service.AutorService;
-import mauriciojrweb.desafio.cdc.validator.EmailDuplicadoAutorValidator;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 @AllArgsConstructor
@@ -14,12 +12,12 @@ import org.springframework.web.bind.annotation.*;
 public class AutorController {
 
     private AutorService autorService;
-    private EmailDuplicadoAutorValidator emailDuplicadoAutorValidator;
 
-    @InitBinder
-    public void init(WebDataBinder binder) {
-        binder.addValidators(emailDuplicadoAutorValidator);
-    }
+//    private EmailAutorDuplicadoValidator emailAutorDuplicadoValidator;
+//    @InitBinder
+//    public void init(WebDataBinder binder) {
+//        binder.addValidators(emailAutorDuplicadoValidator);
+//    }
 
     @PostMapping
     public void cria(@RequestBody @Valid AutorRequest autorRequest) {
