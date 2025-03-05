@@ -2,6 +2,7 @@ package mauriciojrweb.desafio.cdc.service;
 
 import lombok.AllArgsConstructor;
 import mauriciojrweb.desafio.cdc.controller.dto.request.LivroRequest;
+import mauriciojrweb.desafio.cdc.controller.dto.response.LivroGetResponse;
 import mauriciojrweb.desafio.cdc.controller.dto.response.LivroResponse;
 import mauriciojrweb.desafio.cdc.domain.Livro;
 import mauriciojrweb.desafio.cdc.repository.LivroRepository;
@@ -33,5 +34,15 @@ public class LivroService {
         return livroRepository.findAll().stream()
                 .map(livro -> new LivroResponse(livro.getId(), livro.getTitulo()))
                 .toList();
+    }
+
+    public LivroGetResponse obtem(long livroId) {
+
+        Livro livro = livroRepository.findById(livroId).orElseThrow(
+                () -> new RuntimeException("Livro não encontadro")
+        );
+
+        return new LivroGetResponse(livro);
+
     }
 }
