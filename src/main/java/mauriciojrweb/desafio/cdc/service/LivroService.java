@@ -2,9 +2,12 @@ package mauriciojrweb.desafio.cdc.service;
 
 import lombok.AllArgsConstructor;
 import mauriciojrweb.desafio.cdc.controller.dto.request.LivroRequest;
+import mauriciojrweb.desafio.cdc.controller.dto.response.LivroResponse;
 import mauriciojrweb.desafio.cdc.domain.Livro;
 import mauriciojrweb.desafio.cdc.repository.LivroRepository;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @AllArgsConstructor
 @Service
@@ -26,4 +29,9 @@ public class LivroService {
         livroRepository.save(livro);
     }
 
+    public List<LivroResponse> lista() {
+        return livroRepository.findAll().stream()
+                .map(livro -> new LivroResponse(livro.getId(), livro.getTitulo()))
+                .toList();
+    }
 }
