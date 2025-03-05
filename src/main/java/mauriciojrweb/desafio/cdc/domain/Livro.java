@@ -1,8 +1,6 @@
 package mauriciojrweb.desafio.cdc.domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,6 +12,8 @@ import java.time.LocalDate;
 @Entity
 public class Livro {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Column(nullable = false, unique = true)
@@ -22,7 +22,7 @@ public class Livro {
     @Column(nullable = false, length = 500)
     private String resumo;
 
-    @Column(columnDefinition = "TEXT")
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String sumario;
 
     @Column(nullable = false)
@@ -46,14 +46,13 @@ public class Livro {
     public Livro() {
     }
 
-    public Livro(String titulo, String resumo, BigDecimal preco, int numeroPaginas, String isbn, LocalDate dataPublicacao, Categoria categoria, Autor autor) {
+    public Livro(String titulo, String resumo, String sumario, BigDecimal preco, int numeroPaginas, String isbn, LocalDate dataPublicacao) {
         this.titulo = titulo;
         this.resumo = resumo;
+        this.sumario = sumario;
         this.preco = preco;
         this.numeroPaginas = numeroPaginas;
         this.isbn = isbn;
         this.dataPublicacao = dataPublicacao;
-        this.categoria = categoria;
-        this.autor = autor;
     }
 }

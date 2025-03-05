@@ -44,7 +44,7 @@ public class LivroRequest {
     @NotEmptyLongId
     private LongIdRequest autor;
 
-//    public Livro toLivro() {
-//        return new Livro(titulo,resumo,preco,numeroPaginas,isbn,dataPublicacao,)
-//    }
+    public Livro toLivro() {
+        return new Livro(titulo, resumo, sumario, preco, numeroPaginas, isbn, dataPublicacao);
+    }
 }

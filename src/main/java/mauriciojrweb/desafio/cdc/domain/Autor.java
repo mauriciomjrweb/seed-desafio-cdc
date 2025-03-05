@@ -3,7 +3,6 @@ package mauriciojrweb.desafio.cdc.domain;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.data.annotation.CreatedDate;
 
 import java.time.LocalDateTime;
 
@@ -25,8 +24,8 @@ public class Autor {
     @Column(nullable = false, length = 400)
     private String descricao;
 
-    @CreatedDate
-    private LocalDateTime criacao;
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime criacao = LocalDateTime.now();
 
     @Deprecated
     public Autor() {
@@ -36,5 +35,16 @@ public class Autor {
         this.nome = nome;
         this.email = email;
         this.descricao = descricao;
+    }
+
+    @Override
+    public String toString() {
+        return "Autor{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", email='" + email + '\'' +
+                ", descricao='" + descricao + '\'' +
+                ", criacao=" + criacao +
+                '}';
     }
 }

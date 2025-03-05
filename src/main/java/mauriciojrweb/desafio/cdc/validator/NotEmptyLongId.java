@@ -7,7 +7,7 @@ import jakarta.validation.Payload;
 import java.lang.annotation.*;
 
 @Documented
-@Constraint(validatedBy = UniqueValueValidator.class)
+@Constraint(validatedBy = NotEmptyLongIdValidator.class)
 @Target({ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface NotEmptyLongId {
