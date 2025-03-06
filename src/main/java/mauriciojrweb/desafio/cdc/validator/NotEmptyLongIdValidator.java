@@ -2,6 +2,7 @@ package mauriciojrweb.desafio.cdc.validator;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
+import mauriciojrweb.desafio.cdc.controller.dto.request.LongIdRequest;
 import org.springframework.util.ObjectUtils;
 
 public class NotEmptyLongIdValidator implements ConstraintValidator<NotEmptyLongId, mauriciojrweb.desafio.cdc.controller.dto.request.LongIdRequest> {
@@ -12,7 +13,7 @@ public class NotEmptyLongIdValidator implements ConstraintValidator<NotEmptyLong
     }
 
     @Override
-    public boolean isValid(mauriciojrweb.desafio.cdc.controller.dto.request.LongIdRequest longIdRequest, ConstraintValidatorContext constraintValidatorContext) {
+    public boolean isValid(LongIdRequest longIdRequest, ConstraintValidatorContext constraintValidatorContext) {
         return !ObjectUtils.isEmpty(longIdRequest.getId());
     }
 }
