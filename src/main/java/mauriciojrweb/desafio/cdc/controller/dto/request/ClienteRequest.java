@@ -4,6 +4,7 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import mauriciojrweb.desafio.cdc.domain.Estado;
 import mauriciojrweb.desafio.cdc.domain.Pais;
+import mauriciojrweb.desafio.cdc.validator.CPFouCNPJ;
 
 public class ClienteRequest {
 
@@ -18,20 +19,27 @@ public class ClienteRequest {
     private String sobrenome;
 
     @NotBlank
+    @CPFouCNPJ
     private String documento; //    CPF ou CNPJ
 
+    @NotBlank
     private String endereco;
 
+    @NotBlank
     private String complemento;
 
+    @NotBlank
     private String cidade;
 
+    @NotBlank
     private Pais pais;
 
     private Estado estado; //   (caso aquele pais tenha estado)
 
+    @NotBlank
     private String telefone;
 
+    @NotBlank
     private String cep;
 
 }
