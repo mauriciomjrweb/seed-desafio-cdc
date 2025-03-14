@@ -1,12 +1,6 @@
 package mauriciojrweb.desafio.cdc.validator;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class DocumentoValidator {
-
-    private final static char CARACTERER_PONTO = '.';
-    private final static char CARACTERER_HIFEN = '-';
 
     private DocumentoValidator() {
         throw new IllegalStateException("Classe utilitária");
@@ -17,49 +11,74 @@ public class DocumentoValidator {
         if (documentoCpf == null || documentoCpf.isEmpty())
             return false;
 
-        if (documentoCpf.length() < 11 || documentoCpf.length() > 14)
-            return false;
 
-        List<Integer> documentoCpfNumerico = new ArrayList<>();
+        int[] cpfNumerico = new int[documentoCpf.length()];
+        int indiceCpfNumerico = 0;
+        int numeroDigitosIguais = 0;
 
-        for (int i = 0; i < documentoCpf.length(); i++) {
-
-            if (Character.isDigit(documentoCpf.charAt(i)) || documentoCpf.charAt(i) == CARACTERER_PONTO || documentoCpf.charAt(i) == CARACTERER_HIFEN)
-                documentoCpfNumerico.add((int) documentoCpf.charAt(i));
-            else
-                return false;
+        for (char caractere : documentoCpf.toCharArray()) {
+            if (Character.isDigit(caractere)) {
+                cpfNumerico[indiceCpfNumerico] = Character.getNumericValue(caractere);
+                numeroDigitosIguais += cpfNumerico[indiceCpfNumerico] == cpfNumerico[0] ? 1 : 0;
+                indiceCpfNumerico++;
+            }
         }
 
-        int digitoVerificador1, digitoVerificador2;
+        if (indiceCpfNumerico != 11 || numeroDigitosIguais == 11) return false;
+
+        int[] pesosDigitoVerificador1 = new int[]{10, 9, 8, 7, 6, 5, 4, 3, 2};
+
+        if (cpfNumerico[9] != obtemDigitoVerificador(cpfNumerico, pesosDigitoVerificador1))
+            return false;
 
 
-        // Calcula DV 1
+        int[] pesosDigitoVerificador2 = new int[]{11, 10, 9, 8, 7, 6, 5, 4, 3, 2};
+
+        return cpfNumerico[10] == obtemDigitoVerificador(cpfNumerico, pesosDigitoVerificador2);
+
+    }
+
+    public static boolean isCNPJValido(String documentoCnpj) {
+
+        if (documentoCnpj == null || documentoCnpj.isEmpty())
+            return false;
+
+
+        int[] cnpjNumerico = new int[documentoCnpj.length()];
+        int indiceCnpjNumerico = 0;
+        int numeroDigitosIguais = 0;
+
+        for (char caractere : documentoCnpj.toCharArray()) {
+            if (Character.isDigit(caractere)) {
+                cnpjNumerico[indiceCnpjNumerico] = Character.getNumericValue(caractere);
+                numeroDigitosIguais += cnpjNumerico[indiceCnpjNumerico] == cnpjNumerico[0] ? 1 : 0;
+                indiceCnpjNumerico++;
+            }
+        }
+
+        if (indiceCnpjNumerico != 14 || numeroDigitosIguais == 14) return false;
+
+        int[] pesosDv1 = new int[]{5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2};
+
+        if (cnpjNumerico[12] != obtemDigitoVerificador(cnpjNumerico, pesosDv1))
+            return false;
+
+        int[] pesosDv2 = new int[]{6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2};
+
+        return cnpjNumerico[13] == obtemDigitoVerificador(cnpjNumerico, pesosDv2);
+
+    }
+
+    private static int obtemDigitoVerificador(int[] documento, int[] pesos) {
+
         int somatorioDigitoVerificador1 = 0;
-        for (int i = 0; i < 9; i++) {
-            somatorioDigitoVerificador1 += documentoCpfNumerico.get(i) * (10 - i);
+        for (int i = 0; i < pesos.length; i++) {
+            somatorioDigitoVerificador1 += documento[i] * pesos[i];
         }
 
-        int restoDigitoVerificador1 = somatorioDigitoVerificador1 % 11;
+        int restoDigitoVerificador = somatorioDigitoVerificador1 % 11;
 
-        digitoVerificador1 = restoDigitoVerificador1 < 2 ? 0 : 11 - restoDigitoVerificador1;
-
-        if (documentoCpfNumerico.get(9) != digitoVerificador1)
-            return false;
-
-        // Calcula DV 2
-        int somatorioDigitoVerificador2 = 0;
-        for (int i = 0; i < 10; i++) {
-            somatorioDigitoVerificador2 += documentoCpfNumerico.get(i) * (11 - i);
-        }
-
-        int restoDigitoVerificador2 = somatorioDigitoVerificador2 % 11;
-
-        digitoVerificador2 = restoDigitoVerificador2 < 2 ? 0 : 11 - restoDigitoVerificador2;
-
-        if (documentoCpfNumerico.get(10) != digitoVerificador2)
-            return false;
-
-        return true;
+        return restoDigitoVerificador < 2 ? 0 : 11 - restoDigitoVerificador;
 
     }
 
