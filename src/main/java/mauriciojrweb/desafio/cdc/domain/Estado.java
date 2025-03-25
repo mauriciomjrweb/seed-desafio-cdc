@@ -1,8 +1,10 @@
 package mauriciojrweb.desafio.cdc.domain;
 
 import jakarta.persistence.*;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+@Getter
 @NoArgsConstructor
 @Entity
 public class Estado {
