@@ -4,4 +4,6 @@ public class PedidoRequest {
 
     private ClienteRequest cliente;
 
+    private CarrinhoRequest carrinho;
+
 }
