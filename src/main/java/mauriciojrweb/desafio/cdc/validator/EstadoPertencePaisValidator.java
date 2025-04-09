@@ -41,13 +41,12 @@ public class EstadoPertencePaisValidator implements Validator {
             return;
 
 
-        if (possivelPais.isPresent()) {
-            boolean estadoPertencePais = possivelPais.get().getEstados()
-                    .stream()
-                    .anyMatch(estado -> estado.getId() == clienteRequest.getEstadoId());
-            if (!estadoPertencePais)
-                errors.rejectValue("estado", null, "Estado não pertence ao Pais informado");
-        }
+        boolean estadoPertencePais = possivelPais.get().getEstados()
+                .stream()
+                .anyMatch(estado -> estado.getId() == clienteRequest.getEstadoId());
+
+        if (!estadoPertencePais)
+            errors.rejectValue("estado", null, "Estado não pertence ao Pais informado");
 
     }
 }
